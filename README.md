@@ -8,6 +8,9 @@ Renommer et adapter le fichier ./api/.env.example :
 - ./api/.env
 ```
 
+<br>
+<br>
+
 ## Test de l'API
 
 ### Requête HTTP GET
@@ -20,6 +23,9 @@ doit fournir la réponse suivante :
 
 `{"message":"Welcome !"}`
 
+<br>
+<br>
+
 ### Requête HTTP POST
 
 `curl localhost:3000 -H "Content-Type: application/json" -X POST -d '{"message":"Hello World!"}'`
@@ -27,6 +33,9 @@ doit fournir la réponse suivante :
 doit fournir la réponse suivante :
 
 `{"message":"Hello World!"}`
+
+<br>
+<br>
 
 ## Commandes utiles
 
@@ -36,13 +45,16 @@ doit fournir la réponse suivante :
 
 Dans le fichier ./api/.env, indiquer la valeur :
 
-`NODE_ENV=dev`
+`NODE_ENV=development`
 
 #### Environnement de Production
 
 Dans le fichier ./api/.env, indiquer la valeur :
 
 `NODE_ENV=production`
+
+<br>
+<br>
 
 ### Docker
 
@@ -52,17 +64,24 @@ Dans le fichier ./api/.env, indiquer la valeur :
 docker-compose up
 ```
 
+<br>
+
 #### Lancer les services Docker et reprendre la main dans Bash
 
 ```
 docker-compose up -d
 ```
 
+<br>
+
 #### Arrêter les services Docker
 
 ```
 docker-compose stop
 ```
+
+<br>
+<br>
 
 ### Docker + Node.js
 
@@ -76,6 +95,9 @@ Plusieurs solutions sont possibles :
 
 `docker-compose run api npm install`
 
+<br>
+<br>
+
 2 - Via bash, au sein du container :
 
 `docker-compose run api bash`
@@ -84,14 +106,30 @@ puis
 
 `npm install`
 
+<br>
+<br>
+
 3 - Via l'attribut "command" du service dans le fichier docker-compose.yml :
 
 `command: bash -c 'npm i && npm start'`
 
-Démarrer les services après avoir activé cette commande.
-Une fois les modules NPM installés (en particulier Nodemon), pour activer le Hot Reloading, possibilité d'utiliser la commande :
+_Répeter l'une des 3 méthodes d'installation à chaque fois qu'une nouvelle dépendance NPM est ajoutée au fichier ./api/package.json_
+
+<br>
+<br>
+
+#### Hot Reloading
+
+- Ajouter nodemon aux dépendances du fichier `./api/package.json`
+
+- Installer Nodemon dans le container (via l'une des 3 méthodes ci-avant)
+
+- Activer la commande suivante dans `docker-compose.yml`
 
 `command: bash -c 'npm run dev'`
+
+<br>
+<br>
 
 ---
 
