@@ -2,7 +2,7 @@
 
 ## Variables d'environnement
 
-Renommer et adapter le fichier ./api/.env.example :
+**Renommer et adapter le fichier `./api/.env.example`** :
 
 ```
 - ./api/.env
@@ -58,6 +58,14 @@ Dans le fichier ./api/.env, indiquer la valeur :
 
 ### Docker
 
+#### Installer les dépendances d'un service Node.js
+
+```
+docker-compose run <nom-service> npm install
+```
+
+<br>
+
 #### Lancer les services Docker
 
 ```
@@ -87,7 +95,7 @@ docker-compose stop
 
 #### Installer les dépendances NPM dans le dossier node_modules du container
 
-Les modules NPM doivent être installés directement dans le container de destination (et pas simplement synchroniser avec le volume source).
+**Les modules NPM doivent être installés directement dans le container de destination** (et pas simplement synchroniser avec le volume source).
 
 Plusieurs solutions possibles :
 
@@ -124,9 +132,9 @@ _Répeter l'une des 3 méthodes d'installation à chaque fois qu'une nouvelle d�
 
 - Ajouter nodemon aux dépendances du fichier `./api/package.json`
 
-- Installer Nodemon dans le container (via l'une des 3 méthodes ci-avant)
+- Installer **Nodemon** dans le container du service concerné (via l'une des 3 méthodes détaillées ci-avant)
 
-- Activer la commande suivante dans `docker-compose.yml`
+- Activer la commande suivante dans `docker-compose.yml` pour le service concerné :
 
 `command: bash -c 'npm run dev'`
 
