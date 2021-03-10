@@ -89,7 +89,9 @@ docker-compose stop
 
 Les modules NPM doivent être installés directement dans le container de destination (et pas simplement synchroniser avec le volume source).
 
-Plusieurs solutions sont possibles :
+Plusieurs solutions possibles :
+
+<br>
 
 1 - Via une commande docker-compose :
 
