@@ -20,7 +20,7 @@ doit fournir la réponse suivante :
 
 `{"message":"Welcome !"}`
 
-### Requête HTTP POT
+### Requête HTTP POST
 
 `curl localhost:3000 -H "Content-Type: application/json" -X POST -d '{"message":"Hello World!"}'`
 
