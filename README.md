@@ -1,34 +1,104 @@
 # Docker + Node.js Bootstrap
 
-## Variables d'environnement
+## Configurer le projet
 
-**Renommer et adapter le fichier `./api/.env.example`** :
+**adapter le fichier docker-compose.yml**
+
+En particulier il faut choisir les ports de la machine hôte associés au port utilisé par le conteneur :
+
+```
+ports:
+  - "19100:3000"
+```
+
+**Renommer et adapter le fichier `./api/.env.exemple`** :
 
 ```
 - ./api/.env
 ```
 
+Les variables `http_proxy` et `https_proxy` sont nécessaires pour les conteneurs s'exécutant sur une machine hôte installée derrière un proxy.
+Elles permettent aux applications dans le conteneur d'utiliser ce proxy.
+C'est le cas de la machine docketu.iutnc.univ-lorraine.fr.
 <br>
 <br>
+
+## Créer et démarrer les conteneurs, installer les dépendances npm
+
+### Installation des dépendances
+
+Les dépendances du projet (npm, package.json) doivent être installées
+à l'intérieur des conteneurs. Pour cela, 3 possibilités complémentaires :
+
+1. installation au démarrage du conteneur grâce à la directive `command:` du fichier docker-compose.yml :
+
+`command: bash -c 'npm i && npm start'`
+
+2. en exécutant la commande d'installation depuis l'extérieur du conteneur lorsqu'il est actif :
+
+`docker-compose run api npm install` 3. en exécutant un bash depuis l'extérieur du conteneur lorsqu'il est actif, puis, depuis le conteneur, exécuter la commande d'installation :
+
+`docker-compose run api bash`
+
+puis
+
+`npm install`
+
+### Créer et démarrer les conteneurs
+
+#### Créer les services Docker sans les lancer
+
+```
+docker-compose up --no-start
+```
+
+<br>
+
+#### Lancer les services Docker
+
+```
+docker-compose start
+```
+
+#### Créer et lancer les services Docker
+
+```
+docker-compose up
+```
+
+<br>
+
+#### Créer et lancer les services Docker en background
+
+```
+docker-compose up -d
+```
+
+<br>
+
+#### Arrêter les services Docker
+
+```
+docker-compose stop
+```
 
 ## Test de l'API
 
 ### Requête HTTP GET
 
-Après avoir démarré les services Docker, la commande :
+Après avoir démarré les services Docker sur la machine hôte, la commande suivante, exécutée depuis une machine distante:
 
-`curl localhost:3000`
+`curl docketu.iutnc.univ-lorraine.fr:19100`
 
 doit fournir la réponse suivante :
 
 `{"message":"Welcome !"}`
 
 <br>
-<br>
 
 ### Requête HTTP POST
 
-`curl localhost:3000 -H "Content-Type: application/json" -X POST -d '{"message":"Hello World!"}'`
+`curl docketu.iutnc.univ-lorraine.fr:19100 -H "Content-Type: application/json" -X POST -d '{"message":"Hello World!"}'`
 
 doit fournir la réponse suivante :
 
@@ -64,31 +134,6 @@ Dans le fichier ./api/.env, indiquer la valeur :
 docker-compose run <nom-service> npm install
 ```
 
-<br>
-
-#### Lancer les services Docker
-
-```
-docker-compose up
-```
-
-<br>
-
-#### Lancer les services Docker et reprendre la main dans Bash
-
-```
-docker-compose up -d
-```
-
-<br>
-
-#### Arrêter les services Docker
-
-```
-docker-compose stop
-```
-
-<br>
 <br>
 
 ### Docker + Node.js

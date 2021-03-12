@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3"
 
 networks:
   docker_nodejs_bootstrap:
@@ -9,7 +9,7 @@ services:
     container_name: docker_nodejs_bootstrap_api
     image: node
     ports:
-      - "3000:3000"
+      - "19100:3000"
     volumes:
       - ./api:/app
     working_dir: /app
